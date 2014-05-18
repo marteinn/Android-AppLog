@@ -4,8 +4,8 @@ import android.util.Log;
 
 
 /**
- * Simplifies Android logging by accepting more loggable primary types and the ability to disable
- * log calls by muting them.
+ * Simplifies Android logging by accepting more loggable primary types and the
+ * ability to disable log calls by muting them.
  *
  * @author martinsandstrom
  */
