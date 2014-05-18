@@ -4,8 +4,9 @@ import android.util.Log;
 
 
 /**
- * Simplifies Android logging by accepting more loggable primary types and the
- * ability to disable log calls by muting them.
+ * Simplifies Android logging by pointing out calling class/method,
+ * accepting more loggable primary types and the ability to disable
+ * log calls by muting them.
  *
  * @author martinsandstrom
  */
@@ -15,13 +16,29 @@ public class AppLog {
      */
     private static Boolean sMute = false;
 
+
     /**
-     * Factory method to create a TagLog instance.
+     * Regular log call that resolves stack element.
+     * @param type
      * @param tag
-     * @return
+     * @param msg
      */
-    public static TagLog newTagLog(String tag) {
-        return new TagLog(tag);
+    public static void println(int type, String tag, String msg) {
+        StackTraceElement element = getTraceElement();
+
+        println(type, tag, msg, element);
+    }
+
+    /**
+     * Logging call that uses the calling class as tag.
+     * @param type
+     * @param msg
+     */
+    public static void println(int type, String msg) {
+        StackTraceElement element = getTraceElement();
+        String tag = element.getClassName();
+
+        println(type, tag, msg, element);
     }
 
     /**
@@ -29,174 +46,148 @@ public class AppLog {
      * @param type
      * @param tag
      * @param msg
+     * @param element
      */
-    public static void println(int type, String tag, String msg) {
+    public static void println(int type, String tag, String msg, StackTraceElement element) {
         if (sMute) return;
 
-        Log.println(type, tag, msg);
+        // Get info about the method invoking logging.
+        String signature = String.format("\t(%s:%d)", element.getMethodName(),
+                element.getLineNumber());
+
+        // Run original logger
+        Log.println(type, tag, msg+signature);
     }
 
-    // TODO: Find a way to make log calls less repetitive.
+    /**
+     * Return the stack element invoking logging.
+     * @return
+     */
+    public static StackTraceElement getTraceElement() {
+        StackTraceElement[] elements = new Exception().getStackTrace();
+
+        for (StackTraceElement element : elements) {
+            if (! element.getClassName().startsWith("se.marteinn.utils.logging.")) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
 
     // Info
 
-    public static void i(String tag, String value) {
-        println(Log.INFO, tag, value);
+    public static void i(String tag, Object value) {
+        println(Log.INFO, tag, value.toString());
     }
 
-    public static void i(String tag, int value) {
-        println(Log.INFO, tag, String.valueOf(value));
+    public static void i(Object value) {
+        println(Log.INFO, value.toString());
     }
 
-    public static void i(String tag, float value) {
-        println(Log.INFO, tag, String.valueOf(value));
+    public static void i(String tag, LogFormat format, Object... args) {
+        i(tag, String.format(format.getFormat(), args));
     }
 
-    public static void i(String tag, double value) {
-        println(Log.INFO, tag, String.valueOf(value));
+    public static void i(LogFormat format, Object... args) {
+        i(String.format(format.getFormat(), args));
     }
 
-    public static void i(String tag, boolean value) {
-        println(Log.INFO, tag, String.valueOf(value));
-    }
-
-    public static void i(String tag, String format, Object... args) {
-        i(tag, String.format(format, args));
-    }
 
 
     // Debug
 
-    public static void d(String tag, String value) {
-        println(Log.DEBUG, tag, value);
+    public static void d(String tag, Object value) {
+        println(Log.DEBUG, tag, value.toString());
     }
 
-    public static void d(String tag, int value) {
-        println(Log.DEBUG, tag, String.valueOf(value));
+    public static void d(Object value) {
+        println(Log.DEBUG, value.toString());
     }
 
-    public static void d(String tag, float value) {
-        println(Log.DEBUG, tag, String.valueOf(value));
+    public static void d(String tag, LogFormat format, Object... args) {
+        d(tag, String.format(format.getFormat(), args));
     }
 
-    public static void d(String tag, double value) {
-        println(Log.DEBUG, tag, String.valueOf(value));
-    }
-
-    public static void d(String tag, boolean value) {
-        println(Log.DEBUG, tag, String.valueOf(value));
-    }
-
-    public static void d(String tag, String format, Object... args) {
-        d(tag, String.format(format, args));
+    public static void d(LogFormat format, Object... args) {
+        d(String.format(format.getFormat(), args));
     }
 
 
     // Error
 
-    public static void e(String tag, String value) {
-        println(Log.ERROR, tag, value);
+    public static void e(String tag, Object value) {
+        println(Log.ERROR, tag, value.toString());
     }
 
-    public static void e(String tag, int value) {
-        println(Log.ERROR, tag, String.valueOf(value));
+    public static void e(Object value) {
+        println(Log.ERROR, value.toString());
     }
 
-    public static void e(String tag, float value) {
-        println(Log.ERROR, tag, String.valueOf(value));
+    public static void e(String tag, LogFormat format, Object... args) {
+        e(tag, String.format(format.getFormat(), args));
     }
 
-    public static void e(String tag, double value) {
-        println(Log.ERROR, tag, String.valueOf(value));
-    }
-
-    public static void e(String tag, boolean value) {
-        println(Log.ERROR, tag, String.valueOf(value));
-    }
-
-    public static void e(String tag, String format, Object... args) {
-        e(tag, String.format(format, args));
+    public static void e(LogFormat format, Object... args) {
+        e(String.format(format.getFormat(), args));
     }
 
 
     // Warn
 
-    public static void w(String tag, String value) {
-        println(Log.WARN, tag, value);
+    public static void w(String tag, Object value) {
+        println(Log.WARN, tag, value.toString());
     }
 
-    public static void w(String tag, int value) {
-        println(Log.WARN, tag, String.valueOf(value));
+    public static void w(Object value) {
+        println(Log.WARN, value.toString());
     }
 
-    public static void w(String tag, float value) {
-        println(Log.WARN, tag, String.valueOf(value));
+    public static void w(String tag, LogFormat format, Object... args) {
+        w(tag, String.format(format.getFormat(), args));
     }
 
-    public static void w(String tag, double value) {
-        println(Log.WARN, tag, String.valueOf(value));
-    }
-
-    public static void w(String tag, boolean value) {
-        println(Log.WARN, tag, String.valueOf(value));
-    }
-
-    public static void w(String tag, String format, Object... args) {
-        w(tag, String.format(format, args));
+    public static void w(LogFormat format, Object... args) {
+        w(String.format(format.getFormat(), args));
     }
 
 
     // Verbose
 
-    public static void v(String tag, String value) {
-        println(Log.VERBOSE, tag, value);
+    public static void v(String tag, Object value) {
+        println(Log.VERBOSE, tag, value.toString());
     }
 
-    public static void v(String tag, int value) {
-        println(Log.VERBOSE, tag, String.valueOf(value));
+    public static void v(Object value) {
+        println(Log.VERBOSE, value.toString());
     }
 
-    public static void v(String tag, float value) {
-        println(Log.VERBOSE, tag, String.valueOf(value));
+    public static void v(String tag, LogFormat format, Object... args) {
+        v(tag, String.format(format.getFormat(), args));
     }
 
-    public static void v(String tag, double value) {
-        println(Log.VERBOSE, tag, String.valueOf(value));
-    }
-
-    public static void v(String tag, boolean value) {
-        println(Log.VERBOSE, tag, String.valueOf(value));
-    }
-
-    public static void v(String tag, String format, Object... args) {
-        v(tag, String.format(format, args));
+    public static void v(LogFormat format, Object... args) {
+        v(String.format(format.getFormat(), args));
     }
 
 
     // Assert
 
-    public static void wtf(String tag, String value) {
-        println(Log.ASSERT, tag, value);
+    public static void wtf(String tag, Object value) {
+        println(Log.ASSERT, tag, value.toString());
     }
 
-    public static void wtf(String tag, int value) {
-        println(Log.ASSERT, tag, String.valueOf(value));
+    public static void wtf(Object value) {
+        println(Log.ASSERT, value.toString());
     }
 
-    public static void wtf(String tag, float value) {
-        println(Log.ASSERT, tag, String.valueOf(value));
+    public static void wtf(String tag, LogFormat format, Object... args) {
+        wtf(tag, String.format(format.getFormat(), args));
     }
 
-    public static void wtf(String tag, double value) {
-        println(Log.ASSERT, tag, String.valueOf(value));
-    }
-
-    public static void wtf(String tag, boolean value) {
-        println(Log.ASSERT, tag, String.valueOf(value));
-    }
-
-    public static void wtf(String tag, String format, Object... args) {
-        wtf(tag, String.format(format, args));
+    public static void wtf(LogFormat format, Object... args) {
+        wtf(String.format(format.getFormat(), args));
     }
 
 
@@ -218,4 +209,3 @@ public class AppLog {
         return sMute;
     }
 }
-
