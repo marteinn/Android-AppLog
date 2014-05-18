@@ -86,9 +86,14 @@ public class AppLog {
         println(Log.INFO, value.toString());
     }
 
-    public static void i(String tag, String format, Object... args) {
-        i(tag, String.format(format, args));
+    public static void i(String tag, LogFormat format, Object... args) {
+        i(tag, String.format(format.getFormat(), args));
     }
+
+    public static void i(LogFormat format, Object... args) {
+        i(String.format(format.getFormat(), args));
+    }
+
 
 
     // Debug
@@ -101,8 +106,12 @@ public class AppLog {
         println(Log.DEBUG, value.toString());
     }
 
-    public static void d(String tag, String format, Object... args) {
-        d(tag, String.format(format, args));
+    public static void d(String tag, LogFormat format, Object... args) {
+        d(tag, String.format(format.getFormat(), args));
+    }
+
+    public static void d(LogFormat format, Object... args) {
+        d(String.format(format.getFormat(), args));
     }
 
 
@@ -116,8 +125,12 @@ public class AppLog {
         println(Log.ERROR, value.toString());
     }
 
-    public static void e(String tag, String format, Object... args) {
-        e(tag, String.format(format, args));
+    public static void e(String tag, LogFormat format, Object... args) {
+        e(tag, String.format(format.getFormat(), args));
+    }
+
+    public static void e(LogFormat format, Object... args) {
+        e(String.format(format.getFormat(), args));
     }
 
 
@@ -131,8 +144,12 @@ public class AppLog {
         println(Log.WARN, value.toString());
     }
 
-    public static void w(String tag, String format, Object... args) {
-        w(tag, String.format(format, args));
+    public static void w(String tag, LogFormat format, Object... args) {
+        w(tag, String.format(format.getFormat(), args));
+    }
+
+    public static void w(LogFormat format, Object... args) {
+        w(String.format(format.getFormat(), args));
     }
 
 
@@ -146,8 +163,12 @@ public class AppLog {
         println(Log.VERBOSE, value.toString());
     }
 
-    public static void v(String tag, String format, Object... args) {
-        v(tag, String.format(format, args));
+    public static void v(String tag, LogFormat format, Object... args) {
+        v(tag, String.format(format.getFormat(), args));
+    }
+
+    public static void v(LogFormat format, Object... args) {
+        v(String.format(format.getFormat(), args));
     }
 
 
@@ -161,8 +182,12 @@ public class AppLog {
         println(Log.ASSERT, value.toString());
     }
 
-    public static void wtf(String tag, String format, Object... args) {
-        wtf(tag, String.format(format, args));
+    public static void wtf(String tag, LogFormat format, Object... args) {
+        wtf(tag, String.format(format.getFormat(), args));
+    }
+
+    public static void wtf(LogFormat format, Object... args) {
+        wtf(String.format(format.getFormat(), args));
     }
 
 
@@ -184,4 +209,3 @@ public class AppLog {
         return sMute;
     }
 }
-
