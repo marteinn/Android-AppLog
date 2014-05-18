@@ -44,6 +44,10 @@ public class TagLog {
         AppLog.i(mTag, String.valueOf(value));
     }
 
+    public void i(String format, Object... args) {
+        i(String.format(format, args));
+    }
+
 
     // Debug
 
@@ -90,6 +94,10 @@ public class TagLog {
         AppLog.e(mTag, String.valueOf(value));
     }
 
+    public void e(String format, Object... args) {
+        e(String.format(format, args));
+    }
+
 
     // Warn
 
@@ -111,6 +119,10 @@ public class TagLog {
 
     public void w(boolean value) {
         AppLog.w(mTag, String.valueOf(value));
+    }
+
+    public void w(String format, Object... args) {
+        w(String.format(format, args));
     }
 
 
@@ -136,6 +148,10 @@ public class TagLog {
         AppLog.v(mTag, String.valueOf(value));
     }
 
+    public void v(String format, Object... args) {
+        v(String.format(format, args));
+    }
+
 
     // Assert
 
@@ -157,6 +173,10 @@ public class TagLog {
 
     public void wtf(boolean value) {
         AppLog.wtf(mTag, String.valueOf(value));
+    }
+
+    public void wtf(String format, Object... args) {
+        wtf(String.format(format, args));
     }
 
 

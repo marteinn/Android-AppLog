@@ -12,13 +12,20 @@ AppLog is the main class that works as a wrapper around android.util.Log and all
 Just import and call AppLog as you would with the built in Log class.
 
 	import se.marteinn.utils.AppLog;
-	
+
 	AppLog.i(TAG, "Hello World"); 	// output: Hello World
 	AppLog.i(TAG, 3.14159265359):	// output: 3.14159265359
 	AppLog.i(TAG, 1.5); 			// output: 1.5
 	AppLog.i(TAG, true); 			// output: true
 	AppLog.i(TAG, 1);  				// output: 1
-	
+
+It is also possible to log using a String.format syntax
+
+	AppLog.i(TAG, "name=%s", "martin");					// output: name=martin
+	AppLog.i(TAG, "name=%s, month=%d", "martin", 1);	// output: name=martin, month=1
+	AppLog.i(TAG, "date=%tD", new Date());				// output: date=05/18/14
+
+
 You can also disable logging:
 
 	AppLog.setMute(true);
@@ -29,10 +36,10 @@ You can also disable logging:
 And creating a TagLog instance is just as easy:
 
 	import se.marteinn.utils.AppLog;
-	
+
 	// Create and store tagLog instance.
 	TagLog log = AppLog.newTagLog(TAG);
-	
+
 	// Then call it from anywhere in your class.
 	log.d("My value");				// My value
 	log.d(1.5);						// 1.5
@@ -40,10 +47,6 @@ And creating a TagLog instance is just as easy:
 ## Contributing
 
 Want to contribute? Awesome. Just send a pull request.
-
-
-## Roadmap:
-* 1.1 - Support for String.format based logging.
 
 
 ## License
