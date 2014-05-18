@@ -4,8 +4,8 @@ import android.util.Log;
 
 
 /**
- * Simplifies Android logging by accepting more loggable primary types and the ability to disable
- * log calls by muting them.
+ * Simplifies Android logging by accepting more loggable primary types and the
+ * ability to disable log calls by muting them.
  *
  * @author martinsandstrom
  */
@@ -60,6 +60,10 @@ public class AppLog {
         println(Log.INFO, tag, String.valueOf(value));
     }
 
+    public static void i(String tag, String format, Object... args) {
+        i(tag, String.format(format, args));
+    }
+
 
     // Debug
 
@@ -81,6 +85,10 @@ public class AppLog {
 
     public static void d(String tag, boolean value) {
         println(Log.DEBUG, tag, String.valueOf(value));
+    }
+
+    public static void d(String tag, String format, Object... args) {
+        d(tag, String.format(format, args));
     }
 
 
@@ -106,6 +114,10 @@ public class AppLog {
         println(Log.ERROR, tag, String.valueOf(value));
     }
 
+    public static void e(String tag, String format, Object... args) {
+        e(tag, String.format(format, args));
+    }
+
 
     // Warn
 
@@ -127,6 +139,10 @@ public class AppLog {
 
     public static void w(String tag, boolean value) {
         println(Log.WARN, tag, String.valueOf(value));
+    }
+
+    public static void w(String tag, String format, Object... args) {
+        w(tag, String.format(format, args));
     }
 
 
@@ -152,6 +168,10 @@ public class AppLog {
         println(Log.VERBOSE, tag, String.valueOf(value));
     }
 
+    public static void v(String tag, String format, Object... args) {
+        v(tag, String.format(format, args));
+    }
+
 
     // Assert
 
@@ -173,6 +193,10 @@ public class AppLog {
 
     public static void wtf(String tag, boolean value) {
         println(Log.ASSERT, tag, String.valueOf(value));
+    }
+
+    public static void wtf(String tag, String format, Object... args) {
+        wtf(tag, String.format(format, args));
     }
 
 
