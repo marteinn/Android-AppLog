@@ -1,48 +1,42 @@
 Android-AppLog
 ==============
-AppLog is a custom Android logger that accept more loggable types and can reuse the tag argument.
+AppLog is a simple Android logger that gives you a detailed output and more log options.
 
 ## How it works
-AppLog is the main class that works as a wrapper around android.util.Log and allows more loggable types and possibility to mute logging. I have also included a class called **TagLog** (that you can instantiate from AppLog) that stores the tag and interacts with AppLog for debugging, so you can simplify your log calls even more.
+AppLog works as a wrapper around android.util.Log and allows detailed logging by traversing through the Stack and printing class/method/linenumber, nicer output with String.format support, more loggable types by using Object.toString and the possibility to mute logging with setMute.
 
 ## Implementation
 
 ### AppLog:
 
-Just import and call AppLog as you would with the built in Log class.
+Just import and call AppLog, it will resolve method and class invoking the trace and accept primary types by invoking Object.toString
 
 	import se.marteinn.utils.AppLog;
 
+	AppLog.i("Hello World"); 	// output: Hello World (method:99)
+	AppLog.i(3.14159265359):	// output: 3.14159265359 (method:99)
+	AppLog.i(1.5); 				// output: 1.5 	(method:99)
+	AppLog.i(true); 			// output: true	(method:99)
+	AppLog.i(1);  				// output: 1	(method:99)
+	
+You can also supply a tag variable, as you would with regular logging.
+
 	AppLog.i(TAG, "Hello World"); 	// output: Hello World
-	AppLog.i(TAG, 3.14159265359):	// output: 3.14159265359
-	AppLog.i(TAG, 1.5); 			// output: 1.5
-	AppLog.i(TAG, true); 			// output: true
-	AppLog.i(TAG, 1);  				// output: 1
 
-It is also possible to log using a String.format syntax
+It is also possible to log with String.format syntax using LogFormat.
 
-	AppLog.i(TAG, "name=%s", "martin");					// output: name=martin
-	AppLog.i(TAG, "name=%s, month=%d", "martin", 1);	// output: name=martin, month=1
-	AppLog.i(TAG, "date=%tD", new Date());				// output: date=05/18/14
+	import se.marteinn.utils.AppLog;
+	import se.marteinn.utils.LogFormat;
+
+	AppLog.i(new LogFormat("name=%s"), "martin");					// output: name=martin
+	AppLog.i(new LogFormat("name=%s, month=%d"), "martin", 1);		// output: name=martin, month=1
+	AppLog.i(new LogFormat("date=%tD"), new Date());				// output: date=05/18/14
 
 
 You can also disable logging:
 
 	AppLog.setMute(true);
 	AppLog.i(TAG, 1);				// output: .... *crickets.
-
-### TagLog:
-
-And creating a TagLog instance is just as easy:
-
-	import se.marteinn.utils.AppLog;
-
-	// Create and store tagLog instance.
-	TagLog log = AppLog.newTagLog(TAG);
-
-	// Then call it from anywhere in your class.
-	log.d("My value");				// My value
-	log.d(1.5);						// 1.5
 
 ## Contributing
 
