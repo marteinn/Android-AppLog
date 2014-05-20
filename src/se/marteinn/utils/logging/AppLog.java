@@ -16,6 +16,11 @@ public class AppLog {
      */
     private static Boolean sMute = false;
 
+    /**
+     * Removes namespace from class when using calling class as tag.
+     */
+    private static Boolean sSkipNamespace = false;
+
 
     /**
      * Regular log call that resolves stack element.
@@ -36,9 +41,12 @@ public class AppLog {
      */
     public static void println(int type, String msg) {
         StackTraceElement element = getTraceElement();
-        String tag = element.getClassName();
+        String name = element.getClassName();
 
-        println(type, tag, msg, element);
+        if (sSkipNamespace) {
+            name = name.substring(name.lastIndexOf(".")+1);
+        }
+        println(type, name, msg, element);
     }
 
     /**
@@ -207,5 +215,21 @@ public class AppLog {
      */
     public static Boolean getMute() {
         return sMute;
+    }
+
+    /**
+     * Set namespace skip flag.
+     * @return
+     */
+    public static void setSkipNamespace(Boolean skipNamespace) {
+        AppLog.sSkipNamespace = skipNamespace;
+    }
+
+    /**
+     * Get namespace skip flag.
+     * @return
+     */
+    public static Boolean getSkipNamespace() {
+        return sSkipNamespace;
     }
 }
