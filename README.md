@@ -18,7 +18,7 @@ Just import and call AppLog, it will resolve method and class invoking the trace
 	AppLog.i(1.5); 				// output: 1.5 	(method:99)
 	AppLog.i(true); 			// output: true	(method:99)
 	AppLog.i(1);  				// output: 1	(method:99)
-	
+
 You can also supply a tag variable, as you would with regular logging.
 
 	AppLog.i(TAG, "Hello World"); 	// output: Hello World
@@ -37,6 +37,14 @@ You can also disable logging:
 
 	AppLog.setMute(true);
 	AppLog.i(TAG, 1);				// output: .... *crickets.
+
+And remove namespace from class when using class resolve.
+
+	AppLog.i(1);				// se.marteinn.YourClass	1 (method:99)
+
+	AppLog.setSkipNamespace(true);
+	AppLog.i(1);				// YourClass				1 (method:99)
+
 
 ## Contributing
 
