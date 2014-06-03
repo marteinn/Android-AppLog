@@ -83,15 +83,25 @@ public class AppLog {
         return null;
     }
 
+    /**
+     * Handles object string conversion.
+     * @param value
+     * @return
+     */
+    private static String toString(Object value) {
+        return (value != null) ? value.toString() : "null";
+    }
+
 
     // Info
 
     public static void i(String tag, Object value) {
-        println(Log.INFO, tag, value.toString());
+        println(Log.INFO, tag, toString(value));
+
     }
 
     public static void i(Object value) {
-        println(Log.INFO, value.toString());
+        println(Log.INFO, toString(value));
     }
 
     public static void i(String tag, LogFormat format, Object... args) {
@@ -107,11 +117,11 @@ public class AppLog {
     // Debug
 
     public static void d(String tag, Object value) {
-        println(Log.DEBUG, tag, value.toString());
+        println(Log.DEBUG, tag, toString(value));
     }
 
     public static void d(Object value) {
-        println(Log.DEBUG, value.toString());
+        println(Log.DEBUG, toString(value));
     }
 
     public static void d(String tag, LogFormat format, Object... args) {
@@ -126,11 +136,11 @@ public class AppLog {
     // Error
 
     public static void e(String tag, Object value) {
-        println(Log.ERROR, tag, value.toString());
+        println(Log.ERROR, tag, toString(value));
     }
 
     public static void e(Object value) {
-        println(Log.ERROR, value.toString());
+        println(Log.ERROR, toString(value));
     }
 
     public static void e(String tag, LogFormat format, Object... args) {
@@ -145,11 +155,11 @@ public class AppLog {
     // Warn
 
     public static void w(String tag, Object value) {
-        println(Log.WARN, tag, value.toString());
+        println(Log.WARN, tag, toString(value));
     }
 
     public static void w(Object value) {
-        println(Log.WARN, value.toString());
+        println(Log.WARN, toString(value));
     }
 
     public static void w(String tag, LogFormat format, Object... args) {
@@ -164,11 +174,11 @@ public class AppLog {
     // Verbose
 
     public static void v(String tag, Object value) {
-        println(Log.VERBOSE, tag, value.toString());
+        println(Log.VERBOSE, tag, toString(value));
     }
 
     public static void v(Object value) {
-        println(Log.VERBOSE, value.toString());
+        println(Log.VERBOSE, toString(value));
     }
 
     public static void v(String tag, LogFormat format, Object... args) {
@@ -183,11 +193,11 @@ public class AppLog {
     // Assert
 
     public static void wtf(String tag, Object value) {
-        println(Log.ASSERT, tag, value.toString());
+        println(Log.ASSERT, tag, toString(value));
     }
 
     public static void wtf(Object value) {
-        println(Log.ASSERT, value.toString());
+        println(Log.ASSERT, toString(value));
     }
 
     public static void wtf(String tag, LogFormat format, Object... args) {
