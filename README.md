@@ -38,7 +38,7 @@ You can also disable logging:
 	AppLog.setMute(true);
 	AppLog.i(TAG, 1);				// output: .... *crickets.
 
-And remove namespace from class when using class resolve.
+Or remove namespace from class when using class resolve.
 
 	AppLog.i(1);				// se.marteinn.YourClass	1 (method:99)
 
@@ -46,9 +46,38 @@ And remove namespace from class when using class resolve.
 	AppLog.i(1);				// YourClass				1 (method:99)
 
 
+## Setup
+
+#### Locally
+
+Download [applog.aar](https://github.com/marteinn/Android-AppLog/blob/master/dist/applog.aar) and move it to your libs folder, then make sure you got libs specified as a flatDir in `gradle.config`
+	
+	repositories {
+	    mavenCentral()
+	    flatDir {
+	        dirs 'libs'
+	    }
+	}
+
+After that just include it as any other dependency.
+ 
+	dependencies {
+		compile 'se.marteinn.utils.logging:applog:2.1.1@aar'
+	}
+	
+Or you could just use the [applog.jar](https://github.com/marteinn/Android-AppLog/blob/master/dist/applog.jar), move it to libs and include it with files().
+
+	dependencies {
+		compile files('libs/applog.jar')
+	}
+
+
+
 ## Contributing
 
 Want to contribute? Awesome. Just send a pull request.
+
+This project is setup as a Android Library for Android Studio. Use `gradlew` to build.
 
 
 ## License
