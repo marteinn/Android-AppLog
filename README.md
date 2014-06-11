@@ -48,6 +48,14 @@ Or remove namespace from class when using class resolve.
 
 ## Setup
 
+#### Maven
+
+You can import AppLog with Gradle through maven:
+
+	dependencies {
+		compile 'se.marteinn.utils.logging:applog:2.1.2'
+	}
+
 #### Locally
 
 Download [applog.aar](https://github.com/marteinn/Android-AppLog/blob/master/dist/applog.aar) and move it to your libs folder, then make sure you got libs specified as a flatDir in `gradle.config`
